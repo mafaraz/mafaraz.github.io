@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Faraz Saleem — Solution Architect & AI Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #0d0f0e;
+    --bg2:      #141714;
+    --surface:  #1a1d1a;
+    --border:   #2a2e2a;
+    --text:     #e8ede8;
+    --muted:    #7a8a7a;
+    --accent:   #a8c57a;
+    --accent2:  #6eab9e;
+    --warm:     #c9a96e;
+    --radius:   12px;
+    --serif:    'DM Serif Display', Georgia, serif;
+    --sans:     'DM Sans', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 60px;
+    background: rgba(13,15,14,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s;
+  }
+  nav.scrolled { border-color: var(--border); }
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 120px 60px 80px;
+    gap: 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(168,197,122,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -100px; left: 100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(110,171,158,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-text { position: relative; z-index: 1; }
+  .hero-eyebrow {
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.1s;
+  }
+  .hero-name {
+    font-family: var(--serif);
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    line-height: 1.1;
+    color: var(--text);
+    margin-bottom: 8px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.2s;
+  }
+  .hero-name em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    color: var(--muted);
+    font-weight: 400;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.3s;
+  }
+  .hero-desc {
+    color: var(--muted);
+    font-size: 1rem;
+    max-width: 480px;
+    line-height: 1.8;
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.4s;
+  }
+  .hero-ctas {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.5s;
+  }
+  .btn {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 6px;
+    font-family: var(--sans);
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #0d0f0e;
+  }
+  .btn-primary:hover { background: #bdd98e; transform: translateY(-1px); }
+  .btn-outline {
+    border: 1px solid var(--border);
+    color: var(--text);
+    background: transparent;
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+  /* Hero right — stats card */
+  .hero-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 40px;
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.5s;
+  }
+  .hero-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
+  .stats-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 28px;
+    margin-bottom: 32px;
+  }
+  .stat-item {}
+  .stat-num {
+    font-family: var(--serif);
+    font-size: 2.4rem;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-label { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+  .location-badge {
+    display: flex; align-items: center; gap: 8px;
+    color: var(--muted); font-size: 0.875rem;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; animation: pulse 2s ease-in-out infinite; }
+
+  @keyframes pulse { 0%,100%{ opacity:1; transform:scale(1); } 50%{ opacity:0.5; transform:scale(0.85); } }
+  @keyframes fadeUp { from{ opacity:0; transform:translateY(18px); } to{ opacity:1; transform:translateY(0); } }
+
+  /* ── SECTIONS ── */
+  section { padding: 100px 60px; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+  .section-heading {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    color: var(--text);
+    margin-bottom: 60px;
+    line-height: 1.15;
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+  .about-body { color: var(--muted); line-height: 1.9; }
+  .about-body p + p { margin-top: 16px; }
+  .about-body strong { color: var(--text); font-weight: 500; }
+  .certs-list { display: flex; flex-direction: column; gap: 10px; }
+  .cert-item {
+    display: flex; align-items: center; gap: 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 0.85rem;
+    color: var(--muted);
+    transition: border-color 0.2s;
+  }
+  .cert-item:hover { border-color: var(--accent2); }
+  .cert-icon { font-size: 1rem; flex-shrink: 0; }
+
+  /* ── EXPERTISE ── */
+  #expertise { background: var(--bg2); }
+  .expertise-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .expertise-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    transition: border-color 0.25s, transform 0.25s;
+  }
+  .expertise-card:hover { border-color: var(--accent2); transform: translateY(-3px); }
+  .expertise-icon {
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+  }
+  .expertise-title {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+  .expertise-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.75; }
+
+  /* ── PROJECTS ── */
+  .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 36px;
+    display: flex; flex-direction: column; gap: 16px;
+    transition: border-color 0.25s, transform 0.25s;
+    position: relative; overflow: hidden;
+  }
+  .project-card::after {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+  .project-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .project-card:hover::after { opacity: 1; }
+  .project-tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: rgba(168,197,122,0.12);
+    color: var(--accent);
+    width: fit-content;
+  }
+  .project-title { font-family: var(--serif); font-size: 1.2rem; color: var(--text); }
+  .project-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.75; flex: 1; }
+  .project-stack { display: flex; flex-wrap: wrap; gap: 8px; }
+  .stack-pill {
+    padding: 3px 10px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    font-size: 0.75rem;
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  /* ── EXPERIENCE ── */
+  #experience { background: var(--bg2); }
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 40px;
+    padding: 36px 0;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .timeline-item:last-child { border-bottom: none; }
+  .timeline-meta { }
+  .timeline-period { font-size: 0.8rem; color: var(--muted); letter-spacing: 0.04em; margin-bottom: 4px; }
+  .timeline-org { font-size: 0.95rem; color: var(--accent2); font-weight: 500; }
+  .timeline-location { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+  .timeline-role { font-family: var(--serif); font-size: 1.2rem; color: var(--text); margin-bottom: 10px; }
+  .timeline-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.8; }
+
+  /* ── SKILLS ── */
+  .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .skill-group {}
+  .skill-group-title { font-size: 0.75rem; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; margin-bottom: 12px; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .skill-tag {
+    padding: 5px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    font-size: 0.8rem;
+    color: var(--muted);
+    background: var(--surface);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .skill-tag:hover { border-color: var(--accent2); color: var(--text); }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--bg2); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+  .contact-intro { color: var(--muted); font-size: 1rem; line-height: 1.85; }
+  .contact-intro p + p { margin-top: 14px; }
+  .contact-links { display: flex; flex-direction: column; gap: 14px; }
+  .contact-link {
+    display: flex; align-items: center; gap: 14px;
+    padding: 16px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 0.9rem;
+    transition: all 0.2s;
+  }
+  .contact-link:hover { border-color: var(--accent); color: var(--text); transform: translateX(4px); }
+  .contact-link-icon { font-size: 1.1rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 40px 60px;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    color: var(--muted); font-size: 0.82rem;
+  }
+  footer a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  footer a:hover { color: var(--accent); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 18px 24px; }
+    .nav-links { gap: 20px; }
+    .hero { grid-template-columns: 1fr; padding: 100px 24px 60px; }
+    .hero-card { display: none; }
+    section { padding: 70px 24px; }
+    .about-grid { grid-template-columns: 1fr; }
+    .expertise-grid { grid-template-columns: 1fr 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .timeline-item { grid-template-columns: 1fr; gap: 8px; }
+    footer { flex-direction: column; gap: 12px; text-align: center; }
+  }
+  @media (max-width: 600px) {
+    .expertise-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a class="nav-logo" href="#">Faraz Saleem</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#expertise">Expertise</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-text">
+    <p class="hero-eyebrow">Solution Architect &amp; AI Engineer</p>
+    <h1 class="hero-name">Muhammad Ahmad<br><em>Faraz Saleem</em></h1>
+    <p class="hero-title">20+ years building enterprise systems</p>
+    <p class="hero-desc">
+      I design and deliver cloud-native solutions at the intersection of Solution Architecture, governance, and applied AI — with hands-on depth in AWS, GenAI, and enterprise transformation.
+    </p>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn btn-primary">See my work</a>
+      <a href="#contact" class="btn btn-outline">Get in touch</a>
+    </div>
+  </div>
+  <div class="hero-card">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-num">20+</div>
+        <div class="stat-label">Years experience</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">6</div>
+        <div class="stat-label">Certifications</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Airline platforms deployed</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">AWS</div>
+        <div class="stat-label">Primary cloud platform</div>
+      </div>
+    </div>
+    <div class="location-badge">
+      <span class="dot"></span>
+      Sydney, Australia — open to contract &amp; perm
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <p class="section-label">Background</p>
+    <h2 class="section-heading">Architect. Engineer.<br>Problem solver.</h2>
+    <div class="about-grid">
+      <div class="about-body">
+        <p>
+          I'm Faraz — a Solution Architect and AI Engineer based in Western Sydney with over two decades of enterprise IT experience spanning loyalty platforms, cloud infrastructure, and applied AI.
+        </p>
+        <p>
+          I spent <strong>18 years at Emirates Airlines</strong>, growing from software engineer to Solution Architect on the Skywards loyalty platform. I led deployments to Air Niugini, SriLankan Airlines, and Philippines Airlines, managed teams of ~20 engineers, and handled security architecture including OKTA SSO, BeyondTrust PAM, and ThreatMetrix.
+        </p>
+        <p>
+          Since relocating to Sydney in 2023, I've been contracting through <strong>HCLTech</strong>, working with Transport for NSW and Verizon's GovCloud Programme. I'm actively building at the intersection of cloud architecture and generative AI, with real hands-on POCs on AWS Bedrock and LangChain under my belt.
+        </p>
+        <p>
+          Outside of work: gym 3–4 days a week, high-protein diet, and a young family keeping life full and grounded.
+        </p>
+      </div>
+      <div>
+        <p style="font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:16px;">Certifications</p>
+        <div class="certs-list">
+          <div class="cert-item"><span class="cert-icon">🏗️</span> TOGAF 10 — Enterprise Architecture</div>
+          <div class="cert-item"><span class="cert-icon">☁️</span> AWS Solutions Architect</div>
+          <div class="cert-item"><span class="cert-icon">🤖</span> AWS AI Practitioner</div>
+          <div class="cert-item"><span class="cert-icon">🔷</span> Azure Administrator</div>
+          <div class="cert-item"><span class="cert-icon">⚙️</span> ITIL 4 — Service Management</div>
+          <div class="cert-item"><span class="cert-icon">🔄</span> SAFe — Scaled Agile</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERTISE -->
+<section id="expertise">
+  <div class="section-inner">
+    <p class="section-label">What I do</p>
+    <h2 class="section-heading">Core areas of expertise</h2>
+    <div class="expertise-grid">
+      <div class="expertise-card">
+        <div class="expertise-icon">🏛️</div>
+        <div class="expertise-title">Solution Architecture</div>
+        <div class="expertise-desc">TOGAF-aligned solution design, NFR definition, formal gate reviews, and cross-domain architecture across enterprise systems. Comfortable from whiteboard to design approval.</div>
+      </div>
+      <div class="expertise-card">
+        <div class="expertise-icon">☁️</div>
+        <div class="expertise-title">Cloud Engineering</div>
+        <div class="expertise-desc">AWS-primary (multi-account environments, VPC design, Terraform IaC, SSM, S3, EC2, ECS). Azure Administration. Secure cloud migration patterns and cost-optimised workload design.</div>
+      </div>
+      <div class="expertise-card">
+        <div class="expertise-icon">🤖</div>
+        <div class="expertise-title">Generative AI & LLMs</div>
+        <div class="expertise-desc">Hands-on with AWS Bedrock, LangChain, LiteLLM gateway, RAG pipelines, and enterprise AI governance. Building practical AI products — not just demos.</div>
+      </div>
+      <div class="expertise-card">
+        <div class="expertise-icon">🔐</div>
+        <div class="expertise-title">Security Architecture</div>
+        <div class="expertise-desc">ISM, IRAP, Essential Eight, OWASP Top 10. Delivered OKTA SSO, BeyondTrust PAM, ThreatMetrix, and Splunk implementations in enterprise environments.</div>
+      </div>
+      <div class="expertise-card">
+        <div class="expertise-icon">🚀</div>
+        <div class="expertise-title">Enterprise Delivery</div>
+        <div class="expertise-desc">SAFe Agile ceremonies, DevOps pipelines (GitLab), programme governance, and cross-functional stakeholder management across large programmes.</div>
+      </div>
+      <div class="expertise-card">
+        <div class="expertise-icon">✈️</div>
+        <div class="expertise-title">Loyalty & Airline Domain</div>
+        <div class="expertise-desc">Deep domain expertise in airline loyalty platforms (Skywards), presales, and multi-airline deployments across APAC and Middle East.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-inner">
+    <p class="section-label">Proof of concepts</p>
+    <h2 class="section-heading">AI projects I've built</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <span class="project-tag">GenAI · RAG</span>
+        <div class="project-title">Knowledge Retrieval Tool</div>
+        <div class="project-desc">
+          A Retrieval-Augmented Generation system using LangChain and Supabase (pgvector) for semantic search over enterprise knowledge bases. Built to surface relevant documentation and policy content from unstructured sources with high accuracy.
+        </div>
+        <div class="project-stack">
+          <span class="stack-pill">LangChain</span>
+          <span class="stack-pill">Supabase</span>
+          <span class="stack-pill">pgvector</span>
+          <span class="stack-pill">AWS Bedrock</span>
+          <span class="stack-pill">Python</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <span class="project-tag">DevEx · Enterprise AI</span>
+        <div class="project-title">GitHub Copilot Enterprise Rollout</div>
+        <div class="project-desc">
+          Designed and led the enterprise-wide rollout programme for GitHub Copilot at Verizon. Covered governance, developer onboarding, usage policy, and measurable productivity metrics across engineering teams.
+        </div>
+        <div class="project-stack">
+          <span class="stack-pill">GitHub Copilot</span>
+          <span class="stack-pill">Enterprise governance</span>
+          <span class="stack-pill">Change management</span>
+          <span class="stack-pill">Programme delivery</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <span class="project-tag">Infrastructure · AI Gateway</span>
+        <div class="project-title">LiteLLM Gateway on AWS Bedrock</div>
+        <div class="project-desc">
+          Deployed a centralised LLM API gateway using LiteLLM on AWS Bedrock, providing unified model routing, cost tracking, and access controls for internal AI consumers. Enables teams to switch LLM providers without code changes.
+        </div>
+        <div class="project-stack">
+          <span class="stack-pill">LiteLLM</span>
+          <span class="stack-pill">AWS Bedrock</span>
+          <span class="stack-pill">Docker</span>
+          <span class="stack-pill">IAM</span>
+          <span class="stack-pill">Terraform</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <span class="project-tag">Personal · Infrastructure</span>
+        <div class="project-title">Home AI Lab</div>
+        <div class="project-desc">
+          Homelab server running Ollama and OpenWebUI for local LLM inference. Also hosts Immich for photo management and Nextcloud for file sync. GPU-optimised build focused on VRAM headroom for running open-weight models.
+        </div>
+        <div class="project-stack">
+          <span class="stack-pill">Ollama</span>
+          <span class="stack-pill">OpenWebUI</span>
+          <span class="stack-pill">Immich</span>
+          <span class="stack-pill">Nextcloud</span>
+          <span class="stack-pill">Linux</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <p class="section-label">Career</p>
+    <h2 class="section-heading">Where I've worked</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-meta">
+          <div class="timeline-period">2023 — Present</div>
+          <div class="timeline-org">HCLTech</div>
+          <div class="timeline-location">Sydney, Australia</div>
+        </div>
+        <div>
+          <div class="timeline-role">Solution Architect &amp; AI Engineer</div>
+          <div class="timeline-desc">Contracting across strategic enterprise clients including Transport for NSW and Verizon's GovCloud Programme. Delivering cloud architecture, AI engineering POCs, security uplift, and cross-programme governance. Built enterprise AI tooling including RAG pipelines, LiteLLM gateway on Bedrock, and GitHub Copilot rollout programme.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-meta">
+          <div class="timeline-period">2005 — 2023</div>
+          <div class="timeline-org">Emirates Airlines</div>
+          <div class="timeline-location">Dubai, UAE</div>
+        </div>
+        <div>
+          <div class="timeline-role">Solution Architect — Skywards Loyalty Platform</div>
+          <div class="timeline-desc">18-year tenure progressing from Software Engineer through IT Service Manager and Presales Consultant to Solution Architect. Led loyalty platform deployments to Air Niugini, SriLankan Airlines, and Philippines Airlines. Managed a team of ~20 engineers. Delivered security architecture including OKTA SSO, BeyondTrust PAM, and ThreatMetrix. Worked within formal architectural governance (TOGAF-aligned gates, NFR definition, SAFe Agile).</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <p class="section-label">Technology</p>
+    <h2 class="section-heading">Tools &amp; technologies</h2>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="skill-group-title">Cloud</div>
+        <div class="skill-tags">
+          <span class="skill-tag">AWS</span>
+          <span class="skill-tag">Azure</span>
+          <span class="skill-tag">Terraform</span>
+          <span class="skill-tag">VPC</span>
+          <span class="skill-tag">ECS</span>
+          <span class="skill-tag">S3</span>
+          <span class="skill-tag">SSM</span>
+          <span class="skill-tag">IAM</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">AI / GenAI</div>
+        <div class="skill-tags">
+          <span class="skill-tag">AWS Bedrock</span>
+          <span class="skill-tag">LangChain</span>
+          <span class="skill-tag">LiteLLM</span>
+          <span class="skill-tag">pgvector</span>
+          <span class="skill-tag">Ollama</span>
+          <span class="skill-tag">RAG</span>
+          <span class="skill-tag">Supabase</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Architecture</div>
+        <div class="skill-tags">
+          <span class="skill-tag">TOGAF 10</span>
+          <span class="skill-tag">SAFe</span>
+          <span class="skill-tag">ITIL 4</span>
+          <span class="skill-tag">Microservices</span>
+          <span class="skill-tag">API design</span>
+          <span class="skill-tag">NFR definition</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Security &amp; Dev</div>
+        <div class="skill-tags">
+          <span class="skill-tag">IRAP / ISM</span>
+          <span class="skill-tag">Essential Eight</span>
+          <span class="skill-tag">OKTA</span>
+          <span class="skill-tag">Splunk</span>
+          <span class="skill-tag">GitLab</span>
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">Docker</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <p class="section-label">Let's talk</p>
+    <h2 class="section-heading">Open to opportunities</h2>
+    <div class="contact-grid">
+      <div class="contact-intro">
+        <p>
+          I'm actively looking for contract and permanent roles across Solution Architecture, AI Engineering, and Enterprise Architecture — particularly in cloud, GenAI, and digital transformation programmes.
+        </p>
+        <p>
+          Based in Western Sydney. Available for hybrid and remote engagements across Australia.
+        </p>
+        <p style="margin-top:24px;">
+          <a href="https://linkedin.com/in/mafaraz" target="_blank" rel="noopener" class="btn btn-primary">View LinkedIn profile</a>
+        </p>
+      </div>
+      <div class="contact-links">
+        <a href="https://linkedin.com/in/mafaraz" target="_blank" rel="noopener" class="contact-link">
+          <span class="contact-link-icon">💼</span>
+          linkedin.com/in/mafaraz
+        </a>
+        <a href="mailto:faraz@example.com" class="contact-link">
+          <span class="contact-link-icon">✉️</span>
+          Email me directly
+        </a>
+        <a href="https://github.com/" target="_blank" rel="noopener" class="contact-link">
+          <span class="contact-link-icon">🐙</span>
+          GitHub — projects &amp; code
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 Muhammad Ahmad Faraz Saleem</span>
+  <span>Sydney, Australia &nbsp;·&nbsp; <a href="https://linkedin.com/in/mafaraz" target="_blank" rel="noopener">LinkedIn</a></span>
+</footer>
+
+<script>
+  // Navbar scroll class
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 20);
+  });
+</script>
+
+</body>
+</html>
