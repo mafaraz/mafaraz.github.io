@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — Faraz Saleem</title>
+<meta name="description" content="Notes on solution architecture, cloud engineering, and applied AI from Faraz Saleem.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/blog.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a class="nav-logo" href="/">Faraz Saleem</a>
+  <ul class="nav-links">
+    <li><a href="/#about">About</a></li>
+    <li><a href="/#projects">Projects</a></li>
+    <li><a href="/#experience">Experience</a></li>
+    <li><a href="/blog/" class="active">Blog</a></li>
+    <li><a href="/#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<main>
+  <section id="blog">
+    <div class="section-inner">
+      <p class="section-label">Writing</p>
+      <h2 class="section-heading">From the blog</h2>
+      <p class="section-desc">Notes on solution architecture, cloud engineering, and applied AI — mostly things I've just finished building or breaking.</p>
+      <div class="post-list" id="post-list">
+        <p class="post-empty">Loading posts…</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 Muhammad Ahmad Faraz Saleem</span>
+  <span>Sydney, Australia &nbsp;·&nbsp; <a href="https://linkedin.com/in/mafaraz" target="_blank" rel="noopener">LinkedIn</a></span>
+</footer>
+
+<script src="/assets/blog.js"></script>
+<script>
+  renderPostList(document.getElementById('post-list'));
+</script>
+
+</body>
+</html>
